@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Support",
+  "version": "1.0",
+  "description": "I am prompt support, creator of prompts",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Finna prompt?"
+  },
+  "icons": {
+    "48": "icon.png"
+  },
+  "background": {},
+  "permissions": ["activeTab"]
+}
