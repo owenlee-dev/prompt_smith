@@ -1,3 +1,35 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Alice&display=swap');
 
+/* Global styles for the app */
+.container {
+  font-family:'Alice',serif;
+  min-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
 }
+.title{
+  text-align: center;
+  margin-bottom:40px;
+}
+
+/* COLOR PALLET 
+pink
+#f9c6c9
+
+yellow
+#faedcb
+
+green
+#c9e4de
+
+blue
+#c6def1
+
+purple
+#dbcdf0
+
+orange
+#f7d9c4
+*/
