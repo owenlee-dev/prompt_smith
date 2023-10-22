@@ -5,5 +5,11 @@ textarea {
   background-color: #f7f7f7;
   margin:10px;
   border-radius: 10px;
-  resize: none;
+  resize: vertical;
+}
+.exemplar-text-input{
+  width:500px;
+  min-width:500px;
+  box-sizing: border-box;
+  margin: 10px 0px;
 }

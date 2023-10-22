@@ -1,18 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Alice&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alice&display=swap");
 
 /* Global styles for the app */
 .container {
-  font-family:'Alice',serif;
+  font-family: "Alice", serif;
   min-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: rgb(241, 241, 241);
   border-radius: 8px;
 }
-.title{
+.title {
   text-align: center;
-  margin-bottom:40px;
+  font-size: 48px;
+  margin-bottom: 40px;
 }
+
+h2{
+  margin-top:0;
+  margin-bottom:0;
+  margin-left:10px;
+}
+
 
 /* COLOR PALLET 
 pink

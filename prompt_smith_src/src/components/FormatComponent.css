@@ -1,0 +1,23 @@
+.format-section {
+  background-color: #f7d9c4;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+}
+.right-col{
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction: column;
+}
+h3{
+  justify-self: center;
+}
+.common-format-container{
+  height:150px;
+  overflow-y:scroll;
+}
+
+

@@ -5,7 +5,7 @@ const ContextComponent = ({ content }) => {
   return (
     <div className="context-section">
       <h2>Context</h2>
-      <TextInput heightInRows="5" />
+      <TextInput heightInRows="2" />
     </div>
   );
 };

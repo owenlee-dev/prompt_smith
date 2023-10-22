@@ -1,0 +1,36 @@
+.exemplar-section {
+  background-color: #c6def1;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.exemplar-section {
+  display: flex;
+  flex-direction: column;
+}
+.text-inputs-container {
+  display: flex;
+  overflow-x:scroll;
+  white-space: nowrap;
+  width:100%;
+  align-items: center;
+  gap: 10px; /* Spacing between each TextInput */
+}
+.plus-button {
+  color:#333333;
+  text-decoration: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 50px;
+  width: 40px;
+  min-width:40px;
+  height: 40px;
+}
+.fa-plus{
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+}

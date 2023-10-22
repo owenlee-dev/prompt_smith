@@ -2,9 +2,10 @@ import React from "react";
 import "./App.css";
 import TaskComponent from "./components/TaskComponent";
 import ContextComponent from "./components/ContextComponent";
-import ExemplarComponent from "./components/ExemplarComponent";
+import ExampleComponent from "./components/ExampleComponent";
 import PromptComponent from "./components/PromptComponent";
-
+import FormatComponent from "./components/FormatComponent";
+import PersonaToneComponent from "./components/PersonaToneComponent";
 function App() {
   return (
     <div className="container">
@@ -15,7 +16,10 @@ function App() {
           "I am preparing for a technical interview for a Software Engineering II position at Google."
         }
       />
-      <ExemplarComponent
+
+      <FormatComponent />
+      <PersonaToneComponent />
+      <ExampleComponent
         content={{
           example1: "Example content here...",
           example2: "Another example content here...",

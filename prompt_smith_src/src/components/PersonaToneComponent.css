@@ -1,0 +1,47 @@
+.persona-tone-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+}
+.persona-section {
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #faedcb;
+}
+.tone-section {
+  background-color: #dbcdf0;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.tone-persona-input {
+  font-family: "Alice", serif;
+  width: calc(100% - 40px);
+  border: none;
+  padding: 10px;
+  background-color: #f7f7f7;
+  margin: 10px 0px;
+  border-radius: 10px;
+  resize: vertical;
+  padding-right: 30px;
+}
+.submit-button {
+  position: absolute;
+  background: none;
+  left: 90%;
+  transform: translateY(21px);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+.triangle-icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 0 7px 12px; /* Adjust the triangle size as needed */
+  border-color: transparent transparent transparent #777; /* Adjust the triangle color as needed */
+}
