@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PersonaToneComponent.css";
 import TextInput from "./TextInput";
 import Dropdown from "./Dropdown";
 
-const PersonaToneComponent = ({ content }) => {
+const PersonaToneComponent = ({
+  content,
+  updateToneState,
+  updatePersonaState,
+}) => {
   const toneItems = [
     "Academic",
     "Analytical",
@@ -124,9 +128,32 @@ const PersonaToneComponent = ({ content }) => {
   const [inputTone, setInputTone] = useState("");
   const [inputPersona, setInputPersona] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
+
+  //on mount, fill inputs from chrome state
+  useEffect(() => {
+    setInputPersona(content.persona);
+    setSelectedItems(
+      Object.values(content.tone).filter((value) => value !== null)
+    );
+  }, []);
+
+  // update app state for persona
+  useEffect(() => {
+    updatePersonaState(inputPersona);
+  }, [inputPersona]);
+
+  // update app state for tone
+  useEffect(() => {
+    updateToneState(selectedItems);
+  }, [selectedItems]);
+
   const handleInputToneAddition = (tone) => {
-    if (!selectedItems.includes(tone)) {
-      setSelectedItems((prevItems) => [...prevItems, tone]);
+    if (selectedItems.length === 3) {
+      alert("Let's not go overboard, 3 tones is plenty!");
+    } else {
+      if (!selectedItems.includes(tone)) {
+        setSelectedItems((prevItems) => [...prevItems, tone]);
+      }
     }
   };
 

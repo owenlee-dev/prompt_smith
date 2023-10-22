@@ -3,7 +3,7 @@ import "./PromptComponent.css";
 import TextInput from "./TextInput";
 import "font-awesome/css/font-awesome.min.css";
 
-const PromptComponent = ({ content }) => {
+const PromptComponent = ({ content, updateAppState }) => {
   const textInputRef = useRef(null);
   const [fadeOut, setFadeOut] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
@@ -28,10 +28,14 @@ const PromptComponent = ({ content }) => {
       .catch((err) => console.error("Failed to copy text: ", err));
   };
 
+  // function to update app state
+  const handleUpdate = (e) => {
+    updateAppState(e.target.value);
+  };
   return (
     <div className="prompt-section">
       <h2>Here's Your Prompt:</h2>
-      <TextInput heightInRows="5" ref={textInputRef} />
+      <TextInput heightInRows="5" ref={textInputRef} onChange={handleUpdate} />
       <button onClick={handleCopy} className="copy-btn">
         <i
           className={`fa ${copySuccess ? "fa-check" : "fa-clipboard"} ${

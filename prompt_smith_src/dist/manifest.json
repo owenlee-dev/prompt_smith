@@ -5,11 +5,11 @@
   "description": "I am prompt support, creator of prompts",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Finna prompt?"
+    "default_title": "Need a prompt?"
   },
   "icons": {
     "48": "icon.png"
   },
   "background": {},
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab", "storage"]
 }

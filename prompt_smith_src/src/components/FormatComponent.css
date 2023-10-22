@@ -14,10 +14,37 @@
 }
 h3{
   justify-self: center;
+  padding:0px 0px 5px 5px;
+  margin:0;
 }
 .common-format-container{
-  height:150px;
+  height:100px;
+  resize:vertical;
+  border-radius:8px;
   overflow-y:scroll;
 }
+.common-formats{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color:#e5b999;
+  width: 180px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+.format-item{
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
 
+.format-item:hover {
+  background-color: #f5f5f5;
+}
+
+.format-item.selected {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}

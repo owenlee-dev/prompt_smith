@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./FormatComponent.css";
 import TextInput from "./TextInput";
 
-const FormatComponent = ({ content }) => {
+const FormatComponent = ({ content, updateAppState }) => {
   const formatItems = [
     "Academic essay",
     "Biography",
@@ -38,18 +38,43 @@ const FormatComponent = ({ content }) => {
     "Thesis statement",
     "User manual",
   ];
+  const [selected, setSelected] = useState(null);
+  const [formatContent, setFormatContent] = useState(null);
+
+  // function to update app state
+  useEffect(() => {
+    updateAppState(formatContent);
+  }, [formatContent]);
+
+  // on mount, fill textArea with saved state
+  useEffect(() => {
+    setFormatContent(content);
+  }, []);
+
   return (
     <div className="format-section">
       <div className="left-col">
         <h2>Format</h2>
-        <TextInput heightInRows="2" />
+        <TextInput
+          heightInRows="3"
+          content={formatContent}
+          onChange={(e) => setFormatContent(e.target.value)}
+        />
       </div>
       <div className="right-col">
         <h3>Some Common Formats</h3>
         <div className="common-format-container">
           <ul className="common-formats">
-            {formatItems.map((item) => (
-              <li key={item} onClick={() => handleItemClick(item)}>
+            {formatItems.map((item, index) => (
+              <li
+                key={index}
+                className={`format-item ${
+                  selected === index ? "selected" : ""
+                }`}
+                onMouseEnter={() => setSelected(index)}
+                onMouseLeave={() => setSelected(null)}
+                onClick={() => setFormatContent(item)}
+              >
                 {item}
               </li>
             ))}

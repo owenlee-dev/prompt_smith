@@ -39,14 +39,18 @@ const Dropdown = ({
 
   // next 2 functions handle the management of the selected items list
   const handleItemClick = (item) => {
-    if (hasSelectedItems) {
-      if (!selectedItems.includes(item)) {
-        setSelectedItems((prevItems) => [...prevItems, item]);
-      } else {
-        setSelectedItems((prevItems) => prevItems.filter((i) => i !== item));
-      }
+    if (selectedItems.length === 3) {
+      alert("Let's not go overboard, 3 tones is plenty!");
     } else {
-      setSelectedItems(item);
+      if (hasSelectedItems) {
+        if (!selectedItems.includes(item)) {
+          setSelectedItems((prevItems) => [...prevItems, item]);
+        } else {
+          setSelectedItems((prevItems) => prevItems.filter((i) => i !== item));
+        }
+      } else {
+        setSelectedItems(item);
+      }
     }
   };
   const removeSelectedItem = (item) => {

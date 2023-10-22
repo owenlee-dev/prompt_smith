@@ -6,6 +6,7 @@ textarea {
   margin:10px;
   border-radius: 10px;
   resize: vertical;
+  font-family: 'Alice', serif;
 }
 .exemplar-text-input{
   width:500px;
