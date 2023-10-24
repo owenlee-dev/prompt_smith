@@ -6,6 +6,7 @@ import ExampleComponent from "./components/ExampleComponent";
 import PromptComponent from "./components/PromptComponent";
 import FormatComponent from "./components/FormatComponent";
 import PersonaToneComponent from "./components/PersonaToneComponent";
+import Toolbar from "./components/Toolbar";
 function App() {
   const defaultState = {
     task: null,
@@ -55,6 +56,7 @@ function App() {
   return (
     <div className="container">
       <h1 className="title">Prompt Support</h1>
+      <Toolbar />
       <TaskComponent
         content={state.task}
         updateAppState={(task) =>
@@ -100,7 +102,7 @@ function App() {
         }}
       />
       <ExampleComponent
-        content={state.example}
+        content={Object.values(state.example)}
         updateAppState={(examples) => {
           const [exampleValue1, exampleValue2, exampleValue3] = examples;
           setState((prevState) => ({

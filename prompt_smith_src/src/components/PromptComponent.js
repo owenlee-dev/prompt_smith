@@ -32,10 +32,16 @@ const PromptComponent = ({ content, updateAppState }) => {
   const handleUpdate = (e) => {
     updateAppState(e.target.value);
   };
+
   return (
     <div className="prompt-section">
       <h2>Here's Your Prompt:</h2>
-      <TextInput heightInRows="5" ref={textInputRef} onChange={handleUpdate} />
+      <TextInput
+        content={content}
+        heightInRows="5"
+        ref={textInputRef}
+        onChange={handleUpdate}
+      />
       <button onClick={handleCopy} className="copy-btn">
         <i
           className={`fa ${copySuccess ? "fa-check" : "fa-clipboard"} ${

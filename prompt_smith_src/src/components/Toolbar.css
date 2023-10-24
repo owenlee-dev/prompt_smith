@@ -1,0 +1,23 @@
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #333333;
+  border-radius: 8px;
+}
+
+.toolbar-btn {
+  font-family: "Alice", serif;
+  max-width: fit-content;
+  min-width: fit-content;
+  background-color: #fff;
+  max-height: 30px;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+}
+
+.toolbar-btn:hover {
+  background-color: #333333;
+  color:#fff;
+}

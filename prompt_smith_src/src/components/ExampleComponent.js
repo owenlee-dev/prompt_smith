@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, isValidElement } from "react";
 import "./ExampleComponent.css";
 import TextInput from "./TextInput";
 
+//content=Array(3) of strings, updateAppState=function to update the state to chrome.sync storage
 const ExampleComponent = ({ content, updateAppState }) => {
   //tracks number of text inputs
   const [textInputs, setTextInputs] = useState([{}]);
@@ -10,11 +11,21 @@ const ExampleComponent = ({ content, updateAppState }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    if (content && content.length) {
+      // Filter out null values and map to respective states
+      const nonNullContent = content.filter((item) => item !== null);
+      setTextInputs(nonNullContent.map(() => ({})));
+      setValues(nonNullContent);
+    }
+  }, []);
+
+  // scrolls to ensure the new text box is always in the screen
+  useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollLeft =
         containerRef.current.scrollWidth - containerRef.current.clientWidth;
     }
-  }, [textInputs]); // This effect runs every time a new TextInput is added
+  }, [textInputs]);
 
   // update the app state each time any of the TextInputs change
   useEffect(() => {
@@ -41,16 +52,13 @@ const ExampleComponent = ({ content, updateAppState }) => {
     }
   };
 
-  // function to update app state
-  const handleUpdate = (e) => {
-    updateAppState(e.target.value);
-  };
   return (
     <div className="exemplar-section">
       <h2>Examples</h2>
       <div className="text-inputs-container" ref={containerRef}>
-        {textInputs.map((_, index) => (
+        {values.map((value, index) => (
           <TextInput
+            content={value}
             className="exemplar-text-input"
             heightInRows="5"
             key={index}
