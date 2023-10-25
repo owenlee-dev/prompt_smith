@@ -10,12 +10,13 @@ const ExampleComponent = ({ content, updateAppState }) => {
   const [values, setValues] = useState([""]);
   const containerRef = useRef(null);
 
+  // load on startup from the chrome sync storage
   useEffect(() => {
     if (content && content.length) {
       // Filter out null values and map to respective states
       const nonNullContent = content.filter((item) => item !== null);
       setTextInputs(nonNullContent.map(() => ({})));
-      setValues(nonNullContent);
+      setValues(nonNullContent.length ? nonNullContent : [""]);
     }
   }, []);
 

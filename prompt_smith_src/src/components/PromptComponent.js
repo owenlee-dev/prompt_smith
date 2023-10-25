@@ -32,16 +32,24 @@ const PromptComponent = ({ content, updateAppState }) => {
   const handleUpdate = (e) => {
     updateAppState(e.target.value);
   };
-
+  const placeholderStr = 'You must have a "Task" for a prompt to generate...';
   return (
     <div className="prompt-section">
       <h2>Here's Your Prompt:</h2>
-      <TextInput
+      {/* <TextInput
+        placeholder={placeholderStr}
         content={content}
-        heightInRows="5"
+        heightInRows="10"
         ref={textInputRef}
         onChange={handleUpdate}
-      />
+      /> */}
+      <div
+        className="prompt-text-container"
+        contentEditable={true}
+        onChange={handleUpdate}
+      >
+        {content}
+      </div>
       <button onClick={handleCopy} className="copy-btn">
         <i
           className={`fa ${copySuccess ? "fa-check" : "fa-clipboard"} ${
@@ -52,5 +60,16 @@ const PromptComponent = ({ content, updateAppState }) => {
     </div>
   );
 };
+//  <div contentEditable={true}>
+//           You are now a{" "}
+//           <span style={{ backgroundColor: "pink" }}>{highlightedText}</span>,
+//           with 5 years experience.
+//         </div>
+//         <input
+//           value={highlightedText}
+//           onChange={handleTheChange}
+//           placeholder="Type here to change highlighted text"
+//         />
+//       </div>
 
 export default PromptComponent;

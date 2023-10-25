@@ -7,29 +7,34 @@ import PromptComponent from "./components/PromptComponent";
 import FormatComponent from "./components/FormatComponent";
 import PersonaToneComponent from "./components/PersonaToneComponent";
 import Toolbar from "./components/Toolbar";
+import BuildPrompt from "./components/PromptBuilder";
 function App() {
   const defaultState = {
-    task: null,
-    context: null,
-    format: null,
+    task: "",
+    context: "",
+    format: "",
     personaTone: {
-      persona: null,
+      persona: "",
       tone: {
-        tone1: null,
-        tone2: null,
-        tone3: null,
+        tone1: "",
+        tone2: "",
+        tone3: "",
       },
     },
     example: {
-      example1: null,
-      example2: null,
-      example3: null,
+      example1: "",
+      example2: "",
+      example3: "",
     },
-    prompt: null,
+    prompt: "",
   };
 
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(defaultState);
+  const [highlightedText, setHighlightedText] = useState("special boy");
+
+  //increment to refresh the entire extension
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // Load state from chrome.storage when component mounts
   useEffect(() => {
@@ -45,18 +50,43 @@ function App() {
 
   // Save state to chrome.storage whenever it changes
   useEffect(() => {
-    chrome.storage.sync.set({ appState: state });
+    const stateWithoutPrompt = { ...state, prompt: "" };
+    chrome.storage.sync.set({ appState: stateWithoutPrompt });
   }, [state]);
 
+  // update the prompt when any of the textInputs are updated
+  useEffect(() => {
+    const newPrompt = BuildPrompt(state);
+    if (newPrompt !== state.prompt) {
+      setState((prevState) => ({ ...prevState, prompt: newPrompt }));
+    }
+    console.log(newPrompt);
+  }, [
+    state.task,
+    state.context,
+    state.format,
+    state.personaTone,
+    state.example,
+  ]);
+
   if (loading) {
-    console.log("loading");
     return <div>Loading...</div>; // Or some loading spinner
   }
 
+  // clear prompt button functionality
+  const resetToDefault = () => {
+    setState(defaultState);
+    setRefreshKey((prevKey) => prevKey + 1);
+  };
+  //TESTING
+
+  const handleTheChange = (e) => {
+    setHighlightedText(e.target.value);
+  };
   return (
-    <div className="container">
+    <div className="container" key={refreshKey}>
       <h1 className="title">Prompt Support</h1>
-      <Toolbar />
+      <Toolbar resetToDefault={resetToDefault} />
       <TaskComponent
         content={state.task}
         updateAppState={(task) =>
@@ -82,7 +112,7 @@ function App() {
             ...prevState,
             personaTone: {
               ...prevState.personaTone,
-              persona: personaTone || null,
+              persona: personaTone || "",
             },
           }));
         }}
@@ -93,9 +123,9 @@ function App() {
             personaTone: {
               ...prevState.personaTone,
               tone: {
-                tone1: toneValue1 || null,
-                tone2: toneValue2 || null,
-                tone3: toneValue3 || null,
+                tone1: toneValue1 || "",
+                tone2: toneValue2 || "",
+                tone3: toneValue3 || "",
               },
             },
           }));
@@ -108,15 +138,15 @@ function App() {
           setState((prevState) => ({
             ...prevState,
             example: {
-              example1: exampleValue1 || null,
-              example2: exampleValue2 || null,
-              example3: exampleValue3 || null,
+              example1: exampleValue1 || "",
+              example2: exampleValue2 || "",
+              example3: exampleValue3 || "",
             },
           }));
         }}
       />
       <PromptComponent
-        content={state.prompt}
+        content={BuildPrompt(state)}
         updateAppState={(prompt) =>
           setState((prevState) => ({ ...prevState, prompt }))
         }

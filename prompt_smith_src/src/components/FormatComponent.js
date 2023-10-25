@@ -38,8 +38,8 @@ const FormatComponent = ({ content, updateAppState }) => {
     "Thesis statement",
     "User manual",
   ];
-  const [selected, setSelected] = useState(null);
-  const [formatContent, setFormatContent] = useState(null);
+  const [selected, setSelected] = useState("");
+  const [formatContent, setFormatContent] = useState("");
 
   // function to update app state
   useEffect(() => {

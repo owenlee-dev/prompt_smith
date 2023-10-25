@@ -6,6 +6,23 @@
   border-radius: 8px;
 }
 
+.prompt-text-container{
+  width: calc(100% - 40px);
+  min-height:100px;
+  border: none;
+  padding:10px;
+  background-color: #f7f7f7;
+  margin:10px;
+  border-radius: 10px;
+  resize: vertical;
+  font-family: 'Alice', serif;
+}
+
+.prompt-components-wrapper>*{
+  display:inline-block;
+  white-space: pre-wrap;
+}
+
 .copy-btn {
   align-self: flex-end;
   background: none;

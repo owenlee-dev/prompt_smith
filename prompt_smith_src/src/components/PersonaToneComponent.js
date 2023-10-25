@@ -133,7 +133,7 @@ const PersonaToneComponent = ({
   useEffect(() => {
     setInputPersona(content.persona);
     setSelectedItems(
-      Object.values(content.tone).filter((value) => value !== null)
+      Object.values(content.tone).filter((value) => value !== "")
     );
   }, []);
 

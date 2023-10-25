@@ -1,11 +1,14 @@
 import React from "react";
 import "./Toolbar.css";
 
-const Toolbar = () => {
+const Toolbar = (props) => {
+  const { resetToDefault, ...rest } = props;
   return (
     <div className="toolbar-container">
-      <button className="toolbar-btn clear-btn">Clear Prompt</button>
-      <button className="toolbar-btn saved-btn">View Saved Prompts</button>
+      <button className="toolbar-btn clear-btn" onClick={resetToDefault}>
+        Clear Prompt
+      </button>
+      <button className="toolbar-btn saved-btn">Saved Prompts</button>
     </div>
   );
 };
