@@ -14,7 +14,7 @@ const ExampleComponent = ({ content, updateAppState }) => {
   useEffect(() => {
     if (content && content.length) {
       // Filter out null values and map to respective states
-      const nonNullContent = content.filter((item) => item !== null);
+      const nonNullContent = content.filter((item) => item !== "");
       setTextInputs(nonNullContent.map(() => ({})));
       setValues(nonNullContent.length ? nonNullContent : [""]);
     }

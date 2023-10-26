@@ -31,12 +31,12 @@ function App() {
 
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(defaultState);
-  const [highlightedText, setHighlightedText] = useState("special boy");
+  const [promptLibrary, setPromptLibrary] = useState([]);
 
   //increment to refresh the entire extension
   const [refreshKey, setRefreshKey] = useState(0);
 
-  // Load state from chrome.storage when component mounts
+  // Load state from chrome.sync when component mounts
   useEffect(() => {
     chrome.storage.sync.get("appState", (data) => {
       if (data.appState) {
@@ -46,6 +46,13 @@ function App() {
       }
       setLoading(false);
     });
+    getPromptLibrary()
+      .then((retrievedLibrary) => {
+        setPromptLibrary(retrievedLibrary);
+      })
+      .catch((err) => {
+        console.error("Failed to retrieve prompt library:", err);
+      });
   }, []);
 
   // Save state to chrome.storage whenever it changes
@@ -60,7 +67,6 @@ function App() {
     if (newPrompt !== state.prompt) {
       setState((prevState) => ({ ...prevState, prompt: newPrompt }));
     }
-    console.log(newPrompt);
   }, [
     state.task,
     state.context,
@@ -73,20 +79,48 @@ function App() {
     return <div>Loading...</div>; // Or some loading spinner
   }
 
+  function getPromptLibrary() {
+    return new Promise((resolve, reject) => {
+      chrome.storage.sync.get("promptLibrary", (result) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError));
+        } else {
+          resolve(result.promptLibrary || []);
+        }
+      });
+    });
+  }
   // clear prompt button functionality
   const resetToDefault = () => {
     setState(defaultState);
     setRefreshKey((prevKey) => prevKey + 1);
   };
-  //TESTING
 
-  const handleTheChange = (e) => {
-    setHighlightedText(e.target.value);
+  const handleSave = (title, content) => {
+    if (title.trim()) {
+      const newPrompt = {
+        title: title,
+        content: content.replace(/(\n\s*){3,}/g, "\n\n"),
+      };
+
+      // Update the local state with the new prompt
+      const updatedLibrary = [...promptLibrary, newPrompt];
+      setPromptLibrary(updatedLibrary);
+
+      // Save the updated library to chrome storage
+      chrome.storage.sync.set({ promptLibrary: updatedLibrary }, () => {
+        console.log("Prompt library updated successfully!");
+      });
+      setRefreshKey((prevKey) => prevKey + 1);
+    } else {
+      console.error("Please provide a title before saving.");
+    }
   };
+
   return (
     <div className="container" key={refreshKey}>
       <h1 className="title">Prompt Support</h1>
-      <Toolbar resetToDefault={resetToDefault} />
+      <Toolbar resetToDefault={resetToDefault} promptLibrary={promptLibrary} />
       <TaskComponent
         content={state.task}
         updateAppState={(task) =>
@@ -146,6 +180,7 @@ function App() {
         }}
       />
       <PromptComponent
+        handleSave={handleSave}
         content={BuildPrompt(state)}
         updateAppState={(prompt) =>
           setState((prevState) => ({ ...prevState, prompt }))

@@ -25,6 +25,7 @@ const BuildPrompt = (promptState) => {
   // Ensure there is a task before rendering
   if (!task) return null;
 
+  // This is {content} in PromptComponent
   return (
     <div className="prompt-components-wrapper">
       {personaTone.persona && <PersonaSection persona={personaTone.persona} />}
@@ -44,7 +45,7 @@ const BuildPrompt = (promptState) => {
 const PersonaSection = ({ persona }) => {
   return (
     <p>
-      You are now a <span className="persona-hl">{persona}</span>.
+      You are now a <span className="hl persona-hl">{persona}</span>.&nbsp;
     </p>
   );
 };
@@ -52,7 +53,7 @@ const PersonaSection = ({ persona }) => {
 const ContextSection = ({ context }) => {
   return (
     <p>
-      I am <span className="context-hl">{context}</span>.
+      <span className="hl context-hl">{context}</span>.&nbsp;
     </p>
   );
 };
@@ -60,8 +61,7 @@ const ContextSection = ({ context }) => {
 const TaskSection = ({ task }) => {
   return (
     <p>
-      {" "}
-      I need you to <span className="task-hl">{task}</span>.
+      I need you to <span className="hl task-hl">{task}</span>.&nbsp;
     </p>
   );
 };
@@ -70,8 +70,8 @@ const FormatSection = ({ format }) => {
   return (
     <p>
       {" "}
-      Please return the information formatted as a{" "}
-      <span className="format-hl">{format}</span>.
+      Your response should be returned in the format of:&nbsp;
+      <span className="hl format-hl">{format}</span>.&nbsp;
     </p>
   );
 };
@@ -83,18 +83,18 @@ const ToneSection = ({ tone }) => {
   } else if (toneArray.length === 1) {
     return (
       <p>
-        {" "}
-        The tone should be <span className="tone-hl">{toneArray[0]}</span>.
+        The tone should be <span className="hl tone-hl">{toneArray[0]}</span>
+        .&nbsp;
       </p>
     );
   } else {
     return (
       <p>
         The tone should be{" "}
-        <span className="tone-hl">
+        <span className="hl tone-hl">
           {toneArray[0]} and {toneArray[1]}
         </span>
-        .
+        .&nbsp;
       </p>
     );
   }
@@ -110,23 +110,25 @@ const ExampleSection = ({ example }) => {
     if (index === 0) return item; // Return the first item as is
     return (
       <>
-        {" "}
-        {"\n"} or: {"\n"} {item}{" "}
+        <br />
+        <span className="no-hl">or:</span> <br /> {item}
       </>
     ); // Add "or:" before subsequent items
   };
 
   return (
-    <span className="example-hl">
-      <p>
-        For example, a response could resemble:
+    <p>
+      <br />
+      For example:
+      <br />
+      <span className="hl example-hl">
         {exampleArray.map((item, index) => (
           <React.Fragment key={index}>
             {renderExample(item, index)}
           </React.Fragment>
         ))}
-      </p>
-    </span>
+      </span>
+    </p>
   );
 };
 

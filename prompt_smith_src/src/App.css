@@ -20,18 +20,34 @@ h2{
   margin-bottom:0;
   margin-left:10px;
 }
-
-.testing-zone{
-  height:400px;
-  width:600px;
-  background-color: aliceblue;
+p{
+  line-height: 120%;
 }
-.highlighted-text {
-  background-color: pink;
+.hl{
+  border-radius:4px;
+  padding:0px 2px;
 }
-
-
-
+.context-hl{
+  background-color: #f9c6c9;
+}
+.example-hl{
+  background-color: #c6def1;
+}
+.tone-hl{
+  background-color: #dbcdf0;
+}
+.format-hl{
+  background-color: #f7d9c4;
+}
+.persona-hl{
+  background-color: #faedcb;
+}
+.task-hl{
+  background-color: #c9e4de;
+}
+.no-hl{
+  background-color: #f7f7f7;
+}
 /* COLOR PALLET 
 pink
 #f9c6c9

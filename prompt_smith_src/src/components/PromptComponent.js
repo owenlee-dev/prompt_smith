@@ -1,16 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./PromptComponent.css";
 import TextInput from "./TextInput";
 import "font-awesome/css/font-awesome.min.css";
 
-const PromptComponent = ({ content, updateAppState }) => {
+const PromptComponent = ({ content, updateAppState, handleSave }) => {
   const textInputRef = useRef(null);
   const [fadeOut, setFadeOut] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [promptTitle, setPromptTitle] = useState("");
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setPromptTitle(""); // reset the title for next time
+  };
+
   const handleCopy = () => {
     // Get the value from the textarea using the ref
-    const textToCopy = textInputRef.current.value;
-
+    const textToCopy = textInputRef.current.textContent;
+    textToCopy;
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
@@ -29,47 +41,75 @@ const PromptComponent = ({ content, updateAppState }) => {
   };
 
   // function to update app state
-  const handleUpdate = (e) => {
-    updateAppState(e.target.value);
+  const handleUpdate = () => {
+    updateAppState(textInputRef.current.textContent);
+  };
+  const handlePaste = (event) => {
+    // Get plain text from clipboard
+    const plainText = event.clipboardData.getData("text/plain");
+
+    // Insert plain text at cursor position in the editable div
+    document.execCommand("insertText", false, plainText);
+
+    // Prevent default paste behavior
+    event.preventDefault();
   };
   const placeholderStr = 'You must have a "Task" for a prompt to generate...';
   return (
     <div className="prompt-section">
       <h2>Here's Your Prompt:</h2>
-      {/* <TextInput
-        placeholder={placeholderStr}
-        content={content}
-        heightInRows="10"
-        ref={textInputRef}
-        onChange={handleUpdate}
-      /> */}
+
       <div
+        ref={textInputRef}
         className="prompt-text-container"
         contentEditable={true}
-        onChange={handleUpdate}
+        onInput={handleUpdate}
+        onPaste={handlePaste}
       >
         {content}
       </div>
-      <button onClick={handleCopy} className="copy-btn">
-        <i
-          className={`fa ${copySuccess ? "fa-check" : "fa-clipboard"} ${
-            fadeOut ? "fade-out-icon" : ""
-          }`}
-        ></i>
-      </button>
+      <div className="prompt-btns">
+        <button onClick={handleOpenModal} className="save-btn">
+          Save Prompt
+        </button>
+        <button onClick={handleCopy} className="copy-btn">
+          <i
+            className={`fa ${copySuccess ? "fa-check" : "fa-clipboard"} ${
+              fadeOut ? "fade-out-icon" : ""
+            }`}
+          ></i>
+        </button>
+      </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Save Your Prompt</h3>
+            <input
+              type="text"
+              className="title-input"
+              value={promptTitle}
+              onChange={(e) => setPromptTitle(e.target.value)}
+              placeholder="Enter prompt title..."
+            />
+            <div className="modal-btns">
+              <button
+                onClick={() => {
+                  const promptText = textInputRef.current.textContent;
+                  handleSave(promptTitle, promptText);
+                  handleCloseModal();
+                }}
+                className="modal-save-btn"
+              >
+                Save
+              </button>
+              <button onClick={handleCloseModal} className="modal-close-btn">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-//  <div contentEditable={true}>
-//           You are now a{" "}
-//           <span style={{ backgroundColor: "pink" }}>{highlightedText}</span>,
-//           with 5 years experience.
-//         </div>
-//         <input
-//           value={highlightedText}
-//           onChange={handleTheChange}
-//           placeholder="Type here to change highlighted text"
-//         />
-//       </div>
-
 export default PromptComponent;

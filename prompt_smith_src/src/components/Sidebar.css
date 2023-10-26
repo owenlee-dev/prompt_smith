@@ -1,0 +1,116 @@
+.sidebar {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100%;
+  background-color: #333;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 10px;
+  color: #f7f7f7;
+  -ms-overflow-style: none;
+  scrollbar-width:none;
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.open {
+  right: 0;
+}
+
+.sidebar-close-btn {
+  font-size:30px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.sb-header{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom:2px solid #f7f7f7;
+  margin-bottom:10px;
+}
+.sb-title{
+  font-weight:400;
+  text-align: start;
+}
+.saved-prompt-title{
+  margin-left:0;
+}
+.saved-prompt-container{
+  background-color:#fff;
+  margin-bottom:10px;
+  border-radius:8px;
+  padding:20px;
+  color:#333;
+}
+
+.saved-prompt-container p {
+  display: -webkit-box;
+  -webkit-line-clamp: 8; 
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+.bot-sb-container{
+  display: flex;
+  justify-content: flex-end;
+}
+.bot-sb-container-double{
+  display: flex;
+  justify-content: space-between;
+}
+.sb-btn {
+  align-self: flex-end;
+  background: none;
+  cursor: pointer;
+  border: none;
+  color: #333333; /* Muted color for the button */
+  font-size: 16px;
+  text-align: end;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.sb-btn i.fa{
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: inline-block; /* To allow for transforms */
+}
+.sb-btn:hover i.fa {
+  transform: scale(1.105); /* Slightly enlarges icon on hover for a subtle effect */
+}
+
+/* Fade-out effect for icon change */
+.fade-out-icon {
+  opacity: 0;
+  pointer-events: none; /* Ensure the fading-out icon is non-interactive */
+}
+
+.sb-btn:hover {
+  color: #555;
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.sb-btn:focus {
+  outline: none;
+}
+
+
+.show-more-btn{
+  font-family: "Alice", serif;
+  max-width:fit-content;
+  min-width:fit-content;
+  max-height:30px;
+  padding:8px;
+  border:none;
+  border-radius:8px;
+  justify-self: flex-start;
+}
+
