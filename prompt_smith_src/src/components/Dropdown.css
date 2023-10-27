@@ -14,6 +14,7 @@
 }
 
 .dropdown-list {
+  z-index:5;
   position: absolute;
   top: 0;
   left: 0;
@@ -41,6 +42,7 @@
 .selected-item-list{
   display:flex;
   flex-wrap:wrap;
+  
 }
 
 .selected-item {
@@ -78,4 +80,23 @@
   color: #ff8080;
   padding: 0;
   margin: 0;
+}
+
+/* ANIMATIONS */
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pop-in {
+  animation: popIn 0.5s forwards;
 }

@@ -102,7 +102,6 @@
   outline: none;
 }
 
-
 .show-more-btn{
   font-family: "Alice", serif;
   max-width:fit-content;
@@ -114,3 +113,72 @@
   justify-self: flex-start;
 }
 
+/* MODAL Styles */
+.areyousure-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.areyousure-content {
+  width: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  color:#333;
+  background-color: #f7f7f7;
+}
+
+.areyousure-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-btn{
+  font-family: "Alice", serif;
+  background-color: #333;
+  color:#f7f7f7;
+  max-width:fit-content;
+  min-width:fit-content;
+  max-height:30px;
+  padding:8px;
+  border:none;
+  border-radius:8px;
+}
+
+
+/* Animations */
+@keyframes slideOutRightFade {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+.slide-out-right-fade {
+  animation-name: slideOutRightFade;
+  animation-duration: 0.5s; /* adjust duration as needed */
+  animation-fill-mode: forwards; /* keeps the end state */
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.slide-up {
+  animation: slide-up 0.5s forwards;
+}

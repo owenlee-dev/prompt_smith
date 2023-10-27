@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, isValidElement } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./ExampleComponent.css";
 import TextInput from "./TextInput";
+import InfoIcon from "./InfoIcon";
 
 //content=Array(3) of strings, updateAppState=function to update the state to chrome.sync storage
 const ExampleComponent = ({ content, updateAppState }) => {
@@ -44,7 +45,7 @@ const ExampleComponent = ({ content, updateAppState }) => {
 
   // function to be called when the plus button is pressed
   const addTextInput = () => {
-    if (textInputs.length === 3) {
+    if (textInputs.length === 2) {
       alert("Let's not go overboard, 3 examples is plenty!");
     } else {
       setTextInputs((prevTextInputs) => [...prevTextInputs, {}]);
@@ -53,14 +54,38 @@ const ExampleComponent = ({ content, updateAppState }) => {
     }
   };
 
+  const generateToolTip = () => {
+    return (
+      <div className="info-tooltip">
+        <p className="tt-main-tip">
+          Including examples or templates in the prompt drastically improves the
+          accuracy of the results.
+        </p>
+        <p className="tt-example">
+          "I accomplished X by the measure of Y which resulted in Z"
+        </p>
+        <p className="tt-example">
+          "Heres the first line of the poem to get you started."
+        </p>
+        <p className="tt-example">
+          "Give your answer in terms of the SMART goal framework"
+        </p>
+        <p className="tt-main-tip">Use the power of ctrl+C, ctrl+V</p>
+      </div>
+    );
+  };
   return (
     <div className="exemplar-section">
-      <h2>Examples</h2>
-      <div className="text-inputs-container" ref={containerRef}>
+      <div className="title-info-icon-container">
+        <h2>Examples / Templates</h2>
+        <InfoIcon generateToolTip={generateToolTip} />
+      </div>
+      <div className="text-inputs-container " ref={containerRef}>
         {values.map((value, index) => (
           <TextInput
+            placeholder="A nice to have, but not required"
             content={value}
-            className="exemplar-text-input"
+            className="exemplar-text-input slide-in"
             heightInRows="5"
             key={index}
             onChange={(e) => handleTextInputChange(index, e.target.value)}

@@ -7,12 +7,11 @@
 }
 
 .prompt-text-container{
-  width: calc(100% - 40px);
   min-height:100px;
   border: none;
   padding:10px;
   background-color: #f7f7f7;
-  margin:10px;
+  margin:10px 0px;
   border-radius: 10px;
   resize: vertical;
   font-family: 'Alice', serif;
@@ -66,6 +65,13 @@
   padding:8px;
   border:none;
   border-radius:8px;
+}
+.save-btn:hover {
+  color: #555;
+}
+
+.save-btn:focus {
+  outline: none;
 }
 
 .prompt-btns{
@@ -133,4 +139,16 @@
 .modal-save-btn {
   background-color: #333;
   color: #f7f7f7;
+}
+
+/* ANIMATIONS */
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation 0.2s forwards;
+}
+
+@keyframes fadeInAnimation {
+  to {
+    opacity: 1;
+  }
 }

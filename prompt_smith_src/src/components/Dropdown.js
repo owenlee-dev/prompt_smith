@@ -3,7 +3,7 @@ import "./Dropdown.css";
 
 const SelectedItem = ({ item, onRemove }) => {
   return (
-    <div className="selected-item">
+    <div className="selected-item pop-in">
       <span className="item-label">{item}</span>
       <div className="divider"></div>
       <button onClick={() => onRemove(item)} className="remove-btn">

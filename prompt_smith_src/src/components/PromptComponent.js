@@ -58,7 +58,6 @@ const PromptComponent = ({ content, updateAppState, handleSave }) => {
   return (
     <div className="prompt-section">
       <h2>Here's Your Prompt:</h2>
-
       <div
         ref={textInputRef}
         className="prompt-text-container"
@@ -81,7 +80,7 @@ const PromptComponent = ({ content, updateAppState, handleSave }) => {
         </button>
       </div>
       {showModal && (
-        <div className="modal">
+        <div className="modal fade-in">
           <div className="modal-content">
             <h3>Save Your Prompt</h3>
             <input

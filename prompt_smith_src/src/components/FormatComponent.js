@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./FormatComponent.css";
 import TextInput from "./TextInput";
+import InfoIcon from "./InfoIcon";
 
 const FormatComponent = ({ content, updateAppState }) => {
   const formatItems = [
@@ -51,11 +52,32 @@ const FormatComponent = ({ content, updateAppState }) => {
     setFormatContent(content);
   }, []);
 
+  const generateToolTip = () => {
+    return (
+      <div className="info-tooltip">
+        <p className="tt-main-tip">
+          What exactly do you want the output to look like for your specific use
+          case
+        </p>
+        <p className="tt-example">
+          Browse through the examples, and you'll discover some that may
+          surprise you.
+        </p>
+        <p className="tt-main-tip">
+          Be specific and take advantage of everything at your disposal
+        </p>
+      </div>
+    );
+  };
   return (
     <div className="format-section">
       <div className="left-col">
-        <h2>Format</h2>
+        <div className="title-info-icon-container">
+          <h2>Format</h2>
+          <InfoIcon generateToolTip={generateToolTip} />
+        </div>
         <TextInput
+          placeholder="Input Format ..."
           heightInRows="3"
           content={formatContent}
           onChange={(e) => setFormatContent(e.target.value)}

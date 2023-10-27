@@ -8,6 +8,7 @@ import FormatComponent from "./components/FormatComponent";
 import PersonaToneComponent from "./components/PersonaToneComponent";
 import Toolbar from "./components/Toolbar";
 import BuildPrompt from "./components/PromptBuilder";
+
 function App() {
   const defaultState = {
     task: "",
@@ -107,20 +108,29 @@ function App() {
       const updatedLibrary = [...promptLibrary, newPrompt];
       setPromptLibrary(updatedLibrary);
 
-      // Save the updated library to chrome storage
-      chrome.storage.sync.set({ promptLibrary: updatedLibrary }, () => {
-        console.log("Prompt library updated successfully!");
-      });
-      setRefreshKey((prevKey) => prevKey + 1);
+      updatePromptLibraryStorage(updatedLibrary);
     } else {
       console.error("Please provide a title before saving.");
     }
   };
 
+  const updatePromptLibraryStorage = (updatedLibrary) => {
+    console.log(updatedLibrary);
+    // Save the updated library to chrome storage
+    chrome.storage.sync.set({ promptLibrary: updatedLibrary }, () => {
+      console.log("Prompt library updated successfully!");
+    });
+    setRefreshKey((prevKey) => prevKey + 1);
+  };
+
   return (
     <div className="container" key={refreshKey}>
       <h1 className="title">Prompt Support</h1>
-      <Toolbar resetToDefault={resetToDefault} promptLibrary={promptLibrary} />
+      <Toolbar
+        resetToDefault={resetToDefault}
+        promptLibrary={promptLibrary}
+        setPromptLibrary={setPromptLibrary}
+      />
       <TaskComponent
         content={state.task}
         updateAppState={(task) =>

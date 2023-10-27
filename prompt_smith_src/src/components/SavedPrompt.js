@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const SavedPrompt = ({ title, prompt, key }) => {
+const SavedPrompt = ({
+  title,
+  prompt,
+  key,
+  handleTrashClick,
+  isDeleting,
+  slideUp,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
@@ -39,7 +46,9 @@ const SavedPrompt = ({ title, prompt, key }) => {
   return (
     <div
       key={key}
-      className={`saved-prompt-container ${isExpanded ? "expanded" : ""}`}
+      className={`saved-prompt-container ${isExpanded ? "expanded" : ""}${
+        isDeleting ? "slide-out-right-fade" : ""
+      }${slideUp ? " slide-up" : ""}`}
     >
       <h2 className="saved-prompt-title">{title}</h2>
       <p
@@ -48,7 +57,6 @@ const SavedPrompt = ({ title, prompt, key }) => {
       >
         {prompt}
       </p>
-      {/* <div className={`sidebar ${isOpen ? "open" : ""}`}> */}
       <div
         className={`${
           showButton ? "bot-sb-container-double" : "bot-sb-container"
@@ -60,7 +68,12 @@ const SavedPrompt = ({ title, prompt, key }) => {
           </button>
         )}
         <div>
-          <button className="sb-btn" onClick={handleTrash}>
+          <button
+            className="sb-btn"
+            onClick={() => {
+              handleTrashClick(title);
+            }}
+          >
             <i className="fa fa-trash"></i>
           </button>
           <button className="sb-btn" onClick={handleCopy}>

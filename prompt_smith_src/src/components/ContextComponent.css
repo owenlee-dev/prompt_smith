@@ -4,4 +4,17 @@
   border-radius: 8px;
   margin-bottom: 10px;
 }
-
+.hl{
+  color:black;
+  border-radius:2px;
+  padding:0 4px;
+}
+.red1{
+  background-color: #ffb4a2;
+}
+.red2{
+  background-color: #e5989b;
+}
+.red3{
+  background-color: #b5838d;
+}

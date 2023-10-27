@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./PersonaToneComponent.css";
 import TextInput from "./TextInput";
 import Dropdown from "./Dropdown";
+import InfoIcon from "./InfoIcon";
 
 const PersonaToneComponent = ({
   content,
@@ -156,12 +157,53 @@ const PersonaToneComponent = ({
       }
     }
   };
-
+  const generatePersonaToolTip = () => {
+    return (
+      <div className="info-tooltip">
+        <p className="tt-main-tip">
+          Who do you want to AI to be? <br />
+          Be specific!
+        </p>
+        <p className="tt-example">
+          For Example:
+          <br />
+          Senior web developer with 20 years of experience, specializing in
+          UI/UX design.
+        </p>
+        <p className="tt-main-tip">
+          Think of someone you wish you had instant access to regarding the
+          problem you're trying to solve
+        </p>
+        <p className="tt-example">
+          For Example: <br />A Scooby Doo impersonator
+        </p>
+      </div>
+    );
+  };
+  const generateToneToolTip = () => {
+    return (
+      <div className="info-tooltip tt-tone-component">
+        <p className="tt-main-tip">
+          Picking a tone is challenging to do effectively. Instead, try telling
+          the AI the feeling you are going for.
+        </p>
+        <p className="tt-example">
+          <span styles={{ "text-decoration": "italics" }}>
+            ~ writing a complaint letter ~
+          </span>
+          <br /> "I want to be taken seriously without sounding too aggressive."
+        </p>
+      </div>
+    );
+  };
   return (
     <div className="persona-tone-section">
       {/* PERSONA SECTION */}
       <div className="persona-section">
-        <h2>Persona:</h2>
+        <div className="title-info-icon-container">
+          <h2 className="mini-section-h2">Persona</h2>
+          <InfoIcon generateToolTip={generatePersonaToolTip} />
+        </div>
         <input
           className="tone-persona-input"
           type="text"
@@ -182,7 +224,10 @@ const PersonaToneComponent = ({
 
       {/* TONE SECTION */}
       <div className="tone-section">
-        <h2>Tone:</h2>
+        <div className="title-info-icon-container">
+          <h2 className="mini-section-h2">Tone</h2>
+          <InfoIcon generateToolTip={generateToneToolTip} />
+        </div>
         <input
           className="tone-persona-input"
           type="text"

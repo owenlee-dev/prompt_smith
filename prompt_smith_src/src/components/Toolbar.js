@@ -3,7 +3,7 @@ import "./Toolbar.css";
 import Sidebar from "./Sidebar";
 
 const Toolbar = (props) => {
-  const { resetToDefault, promptLibrary, ...rest } = props;
+  const { resetToDefault, promptLibrary, setPromptLibrary, ...rest } = props;
   const [showSidebar, setShowSidebar] = useState(false);
   return (
     <div className="toolbar-container">
@@ -18,6 +18,7 @@ const Toolbar = (props) => {
       </button>
       <Sidebar
         promptLibrary={promptLibrary}
+        setPromptLibrary={setPromptLibrary}
         isOpen={showSidebar}
         setIsOpen={setShowSidebar}
         onClose={() => setShowSidebar(false)}
