@@ -13,14 +13,14 @@ const TaskComponent = ({ content, updateAppState }) => {
     return (
       <div className="info-tooltip">
         <p className="tt-main-tip">
-          Always start the task with an action verb:
+          Always start the task with an action verb.
         </p>
         <p className="tt-example">
           For Example: <br />
           Generate, provide, write, analyze, summarize etc...
         </p>
         <p className="tt-main-tip">
-          If you want the AI to do multiple tasks, you should include multiple
+          If you want ChatGPT to do multiple tasks, you should include multiple
           action verbs
         </p>
         <p className="tt-example">

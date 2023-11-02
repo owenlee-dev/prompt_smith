@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // promptState = {
 //   task: null,
 //   context: null,
@@ -21,14 +21,24 @@ import React from "react";
 // `You are now a ${personaTone.persona}. I am ${context}. I need you to ${task}. Please return the information formatted as ${format}. Use a ${personaTone.tone.tone1} tone. For example: ${example}`;
 
 const BuildPrompt = (promptState) => {
-  let { task, context, format, personaTone, example } = promptState;
+  let { task, context, format, personaTone, example, otherSettings } =
+    promptState;
   // Ensure there is a task before rendering
   if (!task) return null;
 
   // This is {content} in PromptComponent
   return (
     <div className="prompt-components-wrapper">
-      {personaTone.persona && <PersonaSection persona={personaTone.persona} />}
+      {otherSettings["Let's go step by step"] && <StepByStepAddition />}
+      {otherSettings[
+        "Forget everything I have told you up until this point"
+      ] && <ForgetEverythingAddition />}
+      {personaTone.persona && (
+        <PersonaSection
+          persona={personaTone.persona}
+          isProfessional={personaTone.isProfessional}
+        />
+      )}
       {context && <ContextSection context={context} />}
       {task && <TaskSection task={task} />}
       {format && <FormatSection format={format} />}
@@ -38,16 +48,30 @@ const BuildPrompt = (promptState) => {
       {(example.example1 || example.example2 || example.example3) && (
         <ExampleSection example={example} />
       )}
+      <EndOfPromptAdditions otherSettings={otherSettings} />
     </div>
   );
 };
 
-const PersonaSection = ({ persona }) => {
-  return (
-    <p>
-      You are now a <span className="hl persona-hl">{persona}</span>.&nbsp;
-    </p>
-  );
+const PersonaSection = ({ persona, isProfessional }) => {
+  if (isProfessional) {
+    return (
+      <p>
+        You are now a
+        <span className="hl persona-hl">
+          professional {persona.toLowerCase()} with over 20 years of
+          experience.&nbsp;
+        </span>
+      </p>
+    );
+  } else {
+    return (
+      <p>
+        You are now a
+        <span className="hl persona-hl">{persona.toLowerCase()}</span>.&nbsp;
+      </p>
+    );
+  }
 };
 
 const ContextSection = ({ context }) => {
@@ -119,7 +143,7 @@ const ExampleSection = ({ example }) => {
   return (
     <p>
       <br />
-      For example:
+      Your response should resemble something like:
       <br />
       <span className="hl example-hl">
         {exampleArray.map((item, index) => (
@@ -129,6 +153,64 @@ const ExampleSection = ({ example }) => {
         ))}
       </span>
     </p>
+  );
+};
+
+const StepByStepAddition = ({ otherSettings }) => {
+  return <p>Let's think step by step.&nbsp;</p>;
+};
+const ForgetEverythingAddition = ({ otherSettings }) => {
+  return (
+    <p>
+      Forget everything I have told you up until this point, let's start
+      fresh.&nbsp;
+    </p>
+  );
+};
+
+const EndOfPromptAdditions = ({ otherSettings }) => {
+  const settingsMessages = {
+    "Show all your work":
+      "Make sure to show all of your work and the steps you took to get to your response",
+
+    "Explain your reasoning":
+      "Make sure to explain your reasoning that led you to this response",
+
+    "Address any potential ambiguities or limitations in your answer":
+      "Please address any potential ambiguities or limitations in your answer.",
+
+    "Only use information that I have provided":
+      "Only use information that I have provided, no outside sources",
+
+    "Provide a draft for me to approve prior to giving the full response":
+      "Provide a sample draft for me to approve and give feedback on prior to giving the full response.",
+
+    "Give me <number> possible responses":
+      "Give me a list of <number> potential responses.",
+
+    "Cite all sources for the information used in your response":
+      "Provide citations for each and every piece of information that you use in your response.",
+
+    "Your response should be no more than <number> words":
+      "Your response has a hard limit of <number> words.",
+
+    "Ask me <number> questions before you start to ensure you understand":
+      "Before you begin, please ask me <number> questions to ensure that you understand completely before generating your response.",
+  };
+
+  return (
+    <div>
+      {Object.keys(otherSettings).map((key) => {
+        if (otherSettings[key] && settingsMessages[key]) {
+          return (
+            <p className="additional-info" key={key}>
+              {settingsMessages[key]}&nbsp;
+            </p>
+          );
+        }
+        return null;
+      })}
+    </div>
   );
 };
 

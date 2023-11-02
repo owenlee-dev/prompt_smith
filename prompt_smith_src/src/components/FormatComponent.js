@@ -4,41 +4,83 @@ import TextInput from "./TextInput";
 import InfoIcon from "./InfoIcon";
 
 const FormatComponent = ({ content, updateAppState }) => {
+  const favFormatItems = [
+    "Summary of no more than <number> words",
+    "Description like i'm <age> years old",
+    "Edited text with the changes bolded",
+    "Table",
+    "Bullet Point List",
+    "Email",
+    "Markdown",
+    "Pros and Cons List",
+    "<type> Report",
+    "Analogy",
+    "Checklist",
+    "Code Snippets",
+    "CSV",
+    "Meeting Minutes",
+    "Memo",
+    "Photo caption",
+    "Proposal",
+    "Timeline",
+    "Tips and Tricks",
+  ];
   const formatItems = [
+    "Abbreviation",
     "Academic essay",
+    "ASCII Art",
     "Biography",
     "Blog post",
     "Book chapter",
     "Book review",
+    "Business Plan",
     "Business proposal",
+    "Case Study",
     "Case study",
-    "Presentation slides",
     "Diary entry",
-    "Email",
-    "Video script",
     "FAQ",
+    "HTML",
+    "Horoscope Reading",
     "Infographic description",
     "Interview",
     "Job interview questions",
+    "JSON",
     "Journal entry",
+    "Lecture Notes",
+    "Lesson Plan",
     "Linkedin profile summary",
+    "List of Recommendations",
     "Love letter",
-    "Memo",
+    "Mathematical Formula",
     "Meeting minutes",
+    "Memo",
+    "Metaphor",
+    "Mind Map",
+    "Mnemonic",
     "Motivational quote",
+    "Numbered List",
     "Parody",
-    "Photo caption",
+    "Presentation slides",
     "Product description",
     "Product review",
     "Research paper",
     "Short story",
+    "Slideshow",
     "Social media post",
+    "Source Code",
     "Speech",
+    "Statistics",
     "Survey questionnaire",
+    "SWOT analysis",
+    "Table I can paste into <destination program>",
     "Technical documentation",
     "Thesis statement",
     "User manual",
+    "Vector File",
+    "Video script",
+    "XML",
   ];
+
   const [selected, setSelected] = useState("");
   const [formatContent, setFormatContent] = useState("");
 
@@ -84,9 +126,23 @@ const FormatComponent = ({ content, updateAppState }) => {
         />
       </div>
       <div className="right-col">
-        <h3>Some Common Formats</h3>
         <div className="common-format-container">
           <ul className="common-formats">
+            <li className="bold">Favorites</li>
+            {favFormatItems.map((item, index) => (
+              <li
+                key={index}
+                className={`format-item ${
+                  selected === index ? "selected" : ""
+                }`}
+                onMouseEnter={() => setSelected(index)}
+                onMouseLeave={() => setSelected(null)}
+                onClick={() => setFormatContent(item)}
+              >
+                {item}
+              </li>
+            ))}
+            <li className="bold">Other Formats</li>
             {formatItems.map((item, index) => (
               <li
                 key={index}

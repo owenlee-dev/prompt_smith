@@ -8,6 +8,7 @@ import FormatComponent from "./components/FormatComponent";
 import PersonaToneComponent from "./components/PersonaToneComponent";
 import Toolbar from "./components/Toolbar";
 import BuildPrompt from "./components/PromptBuilder";
+import OtherSettings from "./components/OtherSettings";
 
 function App() {
   const defaultState = {
@@ -16,6 +17,7 @@ function App() {
     format: "",
     personaTone: {
       persona: "",
+      isProfessional: false,
       tone: {
         tone1: "",
         tone2: "",
@@ -27,13 +29,25 @@ function App() {
       example2: "",
       example3: "",
     },
+    otherSettings: {
+      "Let's go step by step": false,
+      "Forget everything I have told you up until this point": false,
+      "Show all your work": false,
+      "Explain your reasoning": false,
+      "Address any potential ambiguities or limitations in your answer": false,
+      "Only use information that I have provided": false,
+      "Provide a draft for me to approve prior to giving the full response": false,
+      "Give me <number> possible responses": false,
+      "Cite all sources for the information used in your response": false,
+      "Your response should be no more than <number> words": false,
+      "Ask me <number> questions before you start to ensure you understand": false,
+    },
     prompt: "",
   };
 
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(defaultState);
   const [promptLibrary, setPromptLibrary] = useState([]);
-
   //increment to refresh the entire extension
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -60,6 +74,7 @@ function App() {
   useEffect(() => {
     const stateWithoutPrompt = { ...state, prompt: "" };
     chrome.storage.sync.set({ appState: stateWithoutPrompt });
+    console.log(state);
   }, [state]);
 
   // update the prompt when any of the textInputs are updated
@@ -160,6 +175,15 @@ function App() {
             },
           }));
         }}
+        updateProfessionalState={(isProfessional) => {
+          setState((prevState) => ({
+            ...prevState,
+            personaTone: {
+              ...prevState.personaTone,
+              isProfessional: isProfessional,
+            },
+          }));
+        }}
         updateToneState={(selectedItems) => {
           const [toneValue1, toneValue2, toneValue3] = selectedItems;
           setState((prevState) => ({
@@ -188,6 +212,12 @@ function App() {
             },
           }));
         }}
+      />
+      <OtherSettings
+        content={state.otherSettings}
+        updateAppState={(otherSettings) =>
+          setState((prevState) => ({ ...prevState, otherSettings }))
+        }
       />
       <PromptComponent
         handleSave={handleSave}

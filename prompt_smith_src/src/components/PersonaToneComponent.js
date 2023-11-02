@@ -8,6 +8,7 @@ const PersonaToneComponent = ({
   content,
   updateToneState,
   updatePersonaState,
+  updateProfessionalState,
 }) => {
   const toneItems = [
     "Academic",
@@ -129,6 +130,7 @@ const PersonaToneComponent = ({
   const [inputTone, setInputTone] = useState("");
   const [inputPersona, setInputPersona] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
+  const [isProfessional, setIsProfessional] = useState(false);
 
   //on mount, fill inputs from chrome state
   useEffect(() => {
@@ -136,6 +138,7 @@ const PersonaToneComponent = ({
     setSelectedItems(
       Object.values(content.tone).filter((value) => value !== "")
     );
+    setIsProfessional(content.isProfessional);
   }, []);
 
   // update app state for persona
@@ -143,10 +146,18 @@ const PersonaToneComponent = ({
     updatePersonaState(inputPersona);
   }, [inputPersona]);
 
+  useEffect(() => {
+    updateProfessionalState(isProfessional);
+  }, [isProfessional]);
+
   // update app state for tone
   useEffect(() => {
     updateToneState(selectedItems);
   }, [selectedItems]);
+
+  const handleCheckboxChange = () => {
+    setIsProfessional(!isProfessional);
+  };
 
   const handleInputToneAddition = (tone) => {
     if (selectedItems.length === 3) {
@@ -161,7 +172,7 @@ const PersonaToneComponent = ({
     return (
       <div className="info-tooltip">
         <p className="tt-main-tip">
-          Who do you want to AI to be? <br />
+          Who do you want ChatGPT to be? <br />
           Be specific!
         </p>
         <p className="tt-example">
@@ -185,7 +196,7 @@ const PersonaToneComponent = ({
       <div className="info-tooltip tt-tone-component">
         <p className="tt-main-tip">
           Picking a tone is challenging to do effectively. Instead, try telling
-          the AI the feeling you are going for.
+          ChatGPT the feeling you are going for.
         </p>
         <p className="tt-example">
           <span styles={{ "text-decoration": "italics" }}>
@@ -213,13 +224,23 @@ const PersonaToneComponent = ({
           }}
           placeholder="Input Persona..."
         />
-        <Dropdown
-          dropdownTitle="Recommended ▽"
-          items={personaItems}
-          hasSelectedItems={false}
-          selectedItems={inputPersona}
-          setSelectedItems={setInputPersona}
-        />
+        <div className="bot-container">
+          <Dropdown
+            dropdownTitle="Recommended ▽"
+            items={personaItems}
+            hasSelectedItems={false}
+            selectedItems={inputPersona}
+            setSelectedItems={setInputPersona}
+          />
+          <div className="persona-checkbox-item">
+            Professional
+            <input
+              type="checkbox"
+              checked={isProfessional}
+              onChange={handleCheckboxChange}
+            />
+          </div>
+        </div>
       </div>
 
       {/* TONE SECTION */}

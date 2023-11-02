@@ -16,9 +16,10 @@
   margin-bottom: 10px;
 }
 
-.mini-section-h2{
-  margin-left:5px;
+.mini-section-h2 {
+  margin-left: 5px;
 }
+
 
 .tone-persona-input {
   font-family: "Alice", serif;
@@ -40,6 +41,37 @@
   cursor: pointer;
   padding: 0;
   outline: none;
+}
+.bot-container{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.persona-checkbox-item {
+  border-radius: 8px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+}
+.persona-checkbox-item input[type="checkbox"] {
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 3px;
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.persona-checkbox-item input[type="checkbox"]:checked {
+  background-color: #33333383;
 }
 
 .triangle-icon {

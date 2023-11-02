@@ -141,6 +141,10 @@
   color: #f7f7f7;
 }
 
+.additional-info{
+  display:inline;
+}
+
 /* ANIMATIONS */
 .fade-in {
   opacity: 0;
