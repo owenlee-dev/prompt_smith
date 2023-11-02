@@ -5,7 +5,7 @@ import InfoIcon from "./InfoIcon";
 
 const FormatComponent = ({ content, updateAppState }) => {
   const favFormatItems = [
-    "Summary of no more than <number> words",
+    "Concise summary",
     "Description like i'm <age> years old",
     "Edited text with the changes bolded",
     "Table",
